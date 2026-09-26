@@ -2,6 +2,7 @@
 <html lang="ru" class="scroll-smooth"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="assets/logo-dark.png">
     <title>A&amp;K Partners | Аудит, бухгалтерия и право для бизнеса</title>
     <meta name="description" content="A&amp;K Partners — консалтинговая компания: комплексное сопровождение бизнеса в области аудита, бухгалтерского учета и права.">
     <!-- Tailwind CSS for rapid styling -->
@@ -272,6 +273,14 @@
             transform: rotate(180deg);
         }
         
+        /* Logo */
+        .nav-logo img { height: 56px; width: auto; }
+        .nav-logo .logo-on-light { display: none; }
+        .nav-scrolled .nav-logo .logo-on-dark { display: none; }
+        .nav-scrolled .nav-logo .logo-on-light { display: block; }
+        .footer-logo { height: 72px; width: auto; }
+        @media (max-width: 640px) { .nav-logo img { height: 44px; } }
+
         /* Navigation Scrolled State */
         .nav-scrolled {
             background: rgba(255, 255, 255, 0.9);
@@ -508,18 +517,19 @@
     <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 pt-6 pb-6 px-6 md:px-12 lg:px-24">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <!-- Logo -->
-            <a href="#" class="nav-logo text-2xl font-serif font-bold text-white tracking-wider flex items-center gap-2 z-50">
-                <span class="w-8 h-8 bg-brand-taupe rounded-sm flex items-center justify-center text-white text-lg">A</span>
-                &amp;K Partners
+            <a href="#" class="nav-logo flex items-center z-50" aria-label="A&amp;K Partners Consulting">
+                <img src="assets/logo-light.png" alt="A&amp;K Partners Consulting" class="logo-on-dark" width="693" height="160">
+                <img src="assets/logo-dark.png" alt="" class="logo-on-light" width="693" height="160" aria-hidden="true">
             </a>
 
             <!-- Desktop Menu -->
             <div class="hidden lg:flex items-center gap-8">
-                <a href="#about" class="nav-link text-white/90 hover:text-brand-taupe transition-colors text-sm font-medium tracking-wide">О нас</a>
-                <a href="#services" class="nav-link text-white/90 hover:text-brand-taupe transition-colors text-sm font-medium tracking-wide">Услуги</a>
-                <a href="#process" class="nav-link text-white/90 hover:text-brand-taupe transition-colors text-sm font-medium tracking-wide">Как мы работаем</a>
-                <a href="#industries" class="nav-link text-white/90 hover:text-brand-taupe transition-colors text-sm font-medium tracking-wide">Отрасли</a>
-                <a href="#insights" class="nav-link text-white/90 hover:text-brand-taupe transition-colors text-sm font-medium tracking-wide">Аналитика</a>
+                <div id="lang-switch" style="display:none" class="flex gap-2 text-sm text-white/80"></div>
+                <a href="#about" class="nav-link text-white/90 hover:text-brand-taupe transition-colors text-sm font-medium tracking-wide" data-i18n="nav.about">О нас</a>
+                <a href="#services" class="nav-link text-white/90 hover:text-brand-taupe transition-colors text-sm font-medium tracking-wide" data-i18n="nav.services">Услуги</a>
+                <a href="#process" class="nav-link text-white/90 hover:text-brand-taupe transition-colors text-sm font-medium tracking-wide" data-i18n="nav.process">Как мы работаем</a>
+                <a href="#industries" class="nav-link text-white/90 hover:text-brand-taupe transition-colors text-sm font-medium tracking-wide" data-i18n="nav.industries">Отрасли</a>
+                <a href="#insights" style="display:none" class="nav-link text-white/90 hover:text-brand-taupe transition-colors text-sm font-medium tracking-wide">Аналитика</a>
                 <a href="#contact" class="nav-btn border border-white/30 text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-white hover:text-brand-burgundy transition-all duration-300">
                     Записаться на консультацию
                 </a>
@@ -537,7 +547,7 @@
             <a href="#services" class="mobile-link text-white text-2xl font-serif">Услуги</a>
             <a href="#process" class="mobile-link text-white text-2xl font-serif">Как мы работаем</a>
             <a href="#industries" class="mobile-link text-white text-2xl font-serif">Отрасли</a>
-            <a href="#insights" class="mobile-link text-white text-2xl font-serif">Аналитика</a>
+            <a href="#insights" style="display:none" class="mobile-link text-white text-2xl font-serif">Аналитика</a>
             <a href="#contact" class="mobile-link mt-4 border border-brand-taupe text-brand-taupe px-8 py-3 rounded-full text-lg">Записаться на консультацию</a>
         </div>
     </nav>
@@ -1390,7 +1400,7 @@
         </div>
     </section>
 
-    <section id="insights" class="py-24 md:py-32 px-6 bg-white relative">
+    <section id="insights" style="display:none" class="py-24 md:py-32 px-6 bg-white relative">
         <div class="max-w-7xl mx-auto">
             <div class="max-w-2xl mb-16 reveal">
                 <h2 class="text-sm font-semibold tracking-widest text-brand-taupe uppercase mb-4">A&amp;K Insights</h2>
@@ -1531,61 +1541,60 @@
                         </p>
 
                         <div class="space-y-6">
-                            <div class="flex items-start gap-4">
-                                <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center shrink-0">
-                                    <i class="ph ph-map-pin text-brand-taupe text-xl"></i>
-                                </div>
-                                <div>
-                                    <h5 class="font-medium mb-1">Офис</h5>
-                                    <p class="text-sm text-white/60">[Укажите адрес офиса]</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-4">
-                                <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center shrink-0">
-                                    <i class="ph ph-envelope-simple text-brand-taupe text-xl"></i>
-                                </div>
-                                <div>
-                                    <h5 class="font-medium mb-1">Общие вопросы</h5>
-                                    <a href="mailto:info@akpartners.com" class="text-sm text-white/60 hover:text-brand-taupe transition-colors">info@akpartners.com</a>
-                                </div>
-                            </div>
                             <div class="flex items-center gap-4">
                                 <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center shrink-0">
                                     <i class="ph ph-phone text-brand-taupe text-xl"></i>
                                 </div>
                                 <div>
                                     <h5 class="font-medium mb-1">Телефон</h5>
-                                    <a href="tel:+000000000" class="text-sm text-white/60 hover:text-brand-taupe transition-colors">[Укажите номер телефона]</a>
+                                    <a href="tel:+996553998889" class="block text-sm text-white/60 hover:text-brand-taupe transition-colors">+996 553 998 889</a>
+                                    <a href="tel:+996559077799" class="block text-sm text-white/60 hover:text-brand-taupe transition-colors">+996 559 077 799</a>
                                 </div>
                             </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                                    <i class="ph ph-whatsapp-logo text-brand-taupe text-xl"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-medium mb-1">WhatsApp</h5>
+                                    <a href="https://wa.me/996553998889" target="_blank" rel="noopener" class="block text-sm text-white/60 hover:text-brand-taupe transition-colors">+996 553 998 889</a>
+                                    <a href="https://wa.me/996559077799" target="_blank" rel="noopener" class="block text-sm text-white/60 hover:text-brand-taupe transition-colors">+996 559 077 799</a>
+                                </div>
+                            </div>
+                            <!-- TODO: адрес офиса и email добавить, когда будут известны -->
+                            <p class="text-sm text-white/50 font-light pt-2">Стоимость услуг рассчитывается индивидуально после обращения.</p>
                         </div>
                     </div>
 
                     <!-- Contact Form -->
                     <div class="bg-white p-8 rounded-2xl shadow-xl reveal delay-200 text-brand-text">
                         <h4 class="font-serif text-2xl text-brand-burgundy mb-6">Запросить консультацию</h4>
-                        <form id="consultation-form" class="space-y-4">
+                        <form id="consultation-form" class="space-y-4" action="send.php" method="post">
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
                                     <label class="block text-xs font-medium text-brand-text/60 uppercase tracking-wide mb-1">Имя</label>
-                                    <input type="text" class="w-full bg-brand-bg border border-brand-text/10 rounded-lg px-4 py-3 focus:outline-none focus:border-brand-taupe focus:ring-1 focus:ring-brand-taupe transition-colors" required="">
+                                    <input type="text" class="w-full bg-brand-bg border border-brand-text/10 rounded-lg px-4 py-3 focus:outline-none focus:border-brand-taupe focus:ring-1 focus:ring-brand-taupe transition-colors" name="first_name" required="">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-medium text-brand-text/60 uppercase tracking-wide mb-1">Фамилия</label>
-                                    <input type="text" class="w-full bg-brand-bg border border-brand-text/10 rounded-lg px-4 py-3 focus:outline-none focus:border-brand-taupe focus:ring-1 focus:ring-brand-taupe transition-colors" required="">
+                                    <input type="text" class="w-full bg-brand-bg border border-brand-text/10 rounded-lg px-4 py-3 focus:outline-none focus:border-brand-taupe focus:ring-1 focus:ring-brand-taupe transition-colors" name="last_name" required="">
                                 </div>
                             </div>
                             <div>
-                                <label class="block text-xs font-medium text-brand-text/60 uppercase tracking-wide mb-1">Email</label>
-                                <input type="email" class="w-full bg-brand-bg border border-brand-text/10 rounded-lg px-4 py-3 focus:outline-none focus:border-brand-taupe focus:ring-1 focus:ring-brand-taupe transition-colors" required="">
+                                <label class="block text-xs font-medium text-brand-text/60 uppercase tracking-wide mb-1">Телефон / WhatsApp</label>
+                                <input type="tel" name="phone" class="w-full bg-brand-bg border border-brand-text/10 rounded-lg px-4 py-3 focus:outline-none focus:border-brand-taupe focus:ring-1 focus:ring-brand-taupe transition-colors" required="" placeholder="+996 ...">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-brand-text/60 uppercase tracking-wide mb-1">Email (необязательно)</label>
+                                <input type="email" class="w-full bg-brand-bg border border-brand-text/10 rounded-lg px-4 py-3 focus:outline-none focus:border-brand-taupe focus:ring-1 focus:ring-brand-taupe transition-colors" name="email">
                             </div>
                             <div>
                                 <label class="block text-xs font-medium text-brand-text/60 uppercase tracking-wide mb-1">Компания / Организация</label>
-                                <input type="text" class="w-full bg-brand-bg border border-brand-text/10 rounded-lg px-4 py-3 focus:outline-none focus:border-brand-taupe focus:ring-1 focus:ring-brand-taupe transition-colors" required="">
+                                <input type="text" class="w-full bg-brand-bg border border-brand-text/10 rounded-lg px-4 py-3 focus:outline-none focus:border-brand-taupe focus:ring-1 focus:ring-brand-taupe transition-colors" name="company" required="">
                             </div>
                             <div>
                                 <label class="block text-xs font-medium text-brand-text/60 uppercase tracking-wide mb-1">Тематика запроса</label>
-                                <select class="w-full bg-brand-bg border border-brand-text/10 rounded-lg px-4 py-3 focus:outline-none focus:border-brand-taupe focus:ring-1 focus:ring-brand-taupe transition-colors appearance-none">
+                                <select name="topic" class="w-full bg-brand-bg border border-brand-text/10 rounded-lg px-4 py-3 focus:outline-none focus:border-brand-taupe focus:ring-1 focus:ring-brand-taupe transition-colors appearance-none">
                                     <option>Аудит и финансовый консалтинг</option>
                                     <option>Бухгалтерское сопровождение</option>
                                     <option>Налоговое сопровождение</option>
@@ -1595,6 +1604,8 @@
                                     <option>Другой вопрос</option>
                                 </select>
                             </div>
+                            <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+                            <p id="form-status" class="text-sm min-h-[1.25rem]" role="status"></p>
                             <button type="submit" class="w-full btn-primary bg-brand-burgundy text-white font-medium py-4 rounded-lg mt-4 flex justify-center items-center gap-2">
                                 Отправить запрос
                             </button>
@@ -1612,9 +1623,8 @@
                 
                 <!-- Brand -->
                 <div class="lg:col-span-1">
-                    <a href="#" class="text-2xl font-serif font-bold text-white tracking-wider flex items-center gap-2 mb-6">
-                        <span class="w-8 h-8 bg-brand-taupe rounded-sm flex items-center justify-center text-white text-lg">A</span>
-                        &amp;K Partners
+                    <a href="#" class="inline-block mb-6" aria-label="A&amp;K Partners Consulting">
+                        <img src="assets/logo-light.png" alt="A&amp;K Partners Consulting" class="footer-logo" width="693" height="160">
                     </a>
                     <p class="text-sm text-white/50 font-light leading-relaxed mb-6">
                         Аудит, бухгалтерия и право в единой системе профессионального сопровождения бизнеса.
@@ -1633,7 +1643,7 @@
                         <li><a href="#about" class="text-sm text-white/60 hover:text-white transition-colors">О нас</a></li>
                         <li><a href="#process" class="text-sm text-white/60 hover:text-white transition-colors">Как мы работаем</a></li>
                         <li><a href="#industries" class="text-sm text-white/60 hover:text-white transition-colors">Отрасли</a></li>
-                        <li><a href="#insights" class="text-sm text-white/60 hover:text-white transition-colors">Аналитика и исследования</a></li>
+                        <li style="display:none"><a href="#insights" class="text-sm text-white/60 hover:text-white transition-colors">Аналитика и исследования</a></li>
                     </ul>
                 </div>
 
@@ -1648,8 +1658,8 @@
                     </ul>
                 </div>
 
-                <!-- Newsletter -->
-                <div>
+                <!-- Newsletter (скрыто до запуска раздела «Аналитика») -->
+                <div style="display:none">
                     <h6 class="font-serif text-lg mb-4 text-brand-taupe">A&amp;K Insights</h6>
                     <p class="text-sm text-white/50 mb-4 font-light">Подпишитесь на обзор изменений в аудите, бухгалтерии, налогах и праве.</p>
                     <form class="flex">
@@ -1892,23 +1902,33 @@
                 });
             });
 
-            // 6. Form Submission Prevention (Demo)
+            // 6. Form submission (Telegram via send.php)
             const form = document.getElementById('consultation-form');
-            if(form) {
-                form.addEventListener('submit', (e) => {
+            if (form) {
+                form.addEventListener('submit', async (e) => {
                     e.preventDefault();
                     const btn = form.querySelector('button[type="submit"]');
+                    const status = document.getElementById('form-status');
                     const originalText = btn.innerHTML;
-                    btn.innerHTML = '<i class="ph ph-check-circle"></i> Запрос получен';
-                    btn.classList.add('bg-green-700');
-                    setTimeout(() => {
-                        btn.innerHTML = originalText;
-                        btn.classList.remove('bg-green-700');
+                    btn.disabled = true;
+                    status.textContent = '';
+                    try {
+                        const res = await fetch(form.action, { method: 'POST', body: new FormData(form) });
+                        const data = await res.json();
+                        if (!res.ok || !data.ok) throw new Error();
+                        btn.innerHTML = '<i class="ph ph-check-circle"></i> Запрос получен';
+                        status.style.color = '#15803d';
+                        status.textContent = 'Спасибо! Мы свяжемся с вами в ближайшее время.';
                         form.reset();
-                    }, 3000);
+                    } catch (err) {
+                        status.style.color = '#b91c1c';
+                        status.textContent = 'Не удалось отправить. Позвоните или напишите нам в WhatsApp: +996 553 998 889.';
+                    }
+                    setTimeout(() => { btn.innerHTML = originalText; btn.disabled = false; }, 4000);
                 });
             }
         });
     </script>
 
+<script src="assets/i18n.js"></script>
 </body></html>
