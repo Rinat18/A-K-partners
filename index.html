@@ -304,6 +304,13 @@
         .reveal-left.active { transform: translateX(0); }
         .reveal-right { transform: translateX(60px); }
         .reveal-right.active { transform: translateX(0); }
+        /* Never let decorative/animated elements widen the page (horizontal scroll on phones) */
+        html, body { overflow-x: hidden; }
+        @supports (overflow: clip) { html, body { overflow-x: clip; } }
+        @media (max-width: 640px) {
+            .reveal-left, .reveal-right { transform: translateY(30px); }
+            .reveal-left.active, .reveal-right.active { transform: none; }
+        }
         .reveal-scale { transform: scale(0.9); }
         .reveal-scale.active { transform: scale(1); }
 
@@ -422,10 +429,35 @@
             position: relative;
             transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .glow-card:hover {
-            border-color: rgba(139, 109, 92, 0.5) !important;
-            box-shadow: 0 20px 45px -15px rgba(73, 0, 5, 0.15);
-            transform: translateY(-4px);
+        @media (hover: hover) and (pointer: fine) {
+            .glow-card:hover {
+                border-color: rgba(139, 109, 92, 0.5) !important;
+                box-shadow: 0 20px 45px -15px rgba(73, 0, 5, 0.15);
+                transform: translateY(-4px);
+            }
+        }
+
+        /* Touch screens: no hover effects, industry descriptions always visible */
+        @media (hover: none), (pointer: coarse) {
+            .tilt-card, .glow-card { transform: none !important; }
+            .industry-card img { transform: none !important; }
+            .industry-card h4 { transform: none !important; }
+            .industry-card .industry-desc { height: auto !important; opacity: 1 !important; }
+        }
+
+        /* Phones: service accordion layout */
+        @media (max-width: 640px) {
+            .accordion-btn { padding: 1.5rem !important; gap: 0.75rem !important; }
+            .accordion-btn > div { flex-direction: column; gap: 0.75rem !important; }
+            .accordion-btn .service-icon-wrapper { width: 2.75rem; height: 2.75rem; }
+            .accordion-btn .service-icon-wrapper i { font-size: 1.25rem; }
+            .accordion-btn h4 { font-size: 1.25rem; line-height: 1.3; }
+            .accordion-btn p { font-size: 0.9375rem; }
+            .accordion-btn .accordion-icon { font-size: 1.25rem; margin-top: 0.25rem; }
+            .accordion-inner { padding-left: 1.5rem !important; padding-right: 1.5rem !important; }
+            .quote-card { left: 1rem !important; right: 1rem; top: 1rem !important; max-width: none; }
+            .industry-card { height: auto !important; min-height: 16rem; }
+            .industry-card > div:last-child { position: relative; padding: 1.5rem; min-height: 16rem; }
         }
 
         /* Accordion open state highlight */
@@ -685,7 +717,7 @@
                     </div>
                     <!-- Decorative Elements -->
                     <div class="absolute -bottom-8 -right-8 w-2/3 aspect-square bg-brand-taupe/10 rounded-full filter blur-3xl z-0 float-slow"></div>
-                    <div class="absolute top-12 -left-12 glass-panel p-6 rounded-2xl shadow-glass z-20 max-w-xs animate-bounce" style="animation-duration: 4s;">
+                    <div class="quote-card absolute top-12 -left-12 glass-panel p-6 rounded-2xl shadow-glass z-20 max-w-xs animate-bounce" style="animation-duration: 4s;">
                         <i class="ph-fill ph-quotes text-3xl text-brand-taupe mb-2"></i>
                         <p class="text-sm font-medium italic text-brand-text">"Качественный консалтинг — это сочетание глубокой экспертизы, понимания бизнеса и практического результата."</p>
                     </div>
@@ -1278,120 +1310,120 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Industry 1 -->
-                <a href="#contact" class="group block relative h-72 rounded-2xl overflow-hidden reveal delay-100 tilt-card">
+                <a href="#contact" class="industry-card group block relative h-72 rounded-2xl overflow-hidden reveal delay-100 tilt-card">
                     <img src="assets/industries/finance.jpg" loading="lazy" alt="Финансовый сектор и FinTech" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-[#1A0002] via-[#490005]/60 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
                     <div class="absolute inset-0 p-8 flex flex-col justify-end">
                         <h4 class="text-xl font-serif text-white mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform">Финансовый сектор и FinTech</h4>
-                        <div class="h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                        <div class="industry-desc h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-300 overflow-hidden">
                             <p class="text-white/80 text-sm mt-2 font-light">Аудит и внутренний контроль, комплаенс-процедуры, подготовка документов для банков и партнеров.</p>
                         </div>
                     </div>
                 </a>
 
                 <!-- Industry 2 -->
-                <a href="#contact" class="group block relative h-72 rounded-2xl overflow-hidden reveal delay-200 tilt-card">
+                <a href="#contact" class="industry-card group block relative h-72 rounded-2xl overflow-hidden reveal delay-200 tilt-card">
                     <img src="assets/industries/it.jpg" loading="lazy" alt="IT и цифровой бизнес" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-[#1A0002] via-[#490005]/60 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
                     <div class="absolute inset-0 p-8 flex flex-col justify-end">
                         <h4 class="text-xl font-serif text-white mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform">IT и цифровой бизнес</h4>
-                        <div class="h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                        <div class="industry-desc h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-300 overflow-hidden">
                             <p class="text-white/80 text-sm mt-2 font-light">Договоры с разработчиками и клиентами, интеллектуальная собственность, международные расчеты.</p>
                         </div>
                     </div>
                 </a>
 
                 <!-- Industry 3 -->
-                <a href="#contact" class="group block relative h-72 rounded-2xl overflow-hidden reveal delay-300 tilt-card">
+                <a href="#contact" class="industry-card group block relative h-72 rounded-2xl overflow-hidden reveal delay-300 tilt-card">
                     <img src="assets/industries/trade.jpg" loading="lazy" alt="Торговля и дистрибуция" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-[#1A0002] via-[#490005]/60 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
                     <div class="absolute inset-0 p-8 flex flex-col justify-end">
                         <h4 class="text-xl font-serif text-white mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform">Торговля и дистрибуция</h4>
-                        <div class="h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                        <div class="industry-desc h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-300 overflow-hidden">
                             <p class="text-white/80 text-sm mt-2 font-light">Учет товарных операций, договоры поставки, контроль дебиторской и кредиторской задолженности.</p>
                         </div>
                     </div>
                 </a>
 
                 <!-- Industry 4 -->
-                <a href="#contact" class="group block relative h-72 rounded-2xl overflow-hidden reveal delay-100 tilt-card">
+                <a href="#contact" class="industry-card group block relative h-72 rounded-2xl overflow-hidden reveal delay-100 tilt-card">
                     <img src="assets/industries/ved.jpg" loading="lazy" alt="Международный бизнес и ВЭД" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-[#1A0002] via-[#490005]/60 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
                     <div class="absolute inset-0 p-8 flex flex-col justify-end">
                         <h4 class="text-xl font-serif text-white mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform">Международный бизнес и ВЭД</h4>
-                        <div class="h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                        <div class="industry-desc h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-300 overflow-hidden">
                             <p class="text-white/80 text-sm mt-2 font-light">Импорт и экспорт, международные договоры, KYC и комплаенс-процедуры, проверка контрагентов.</p>
                         </div>
                     </div>
                 </a>
 
                 <!-- Industry 5 -->
-                <a href="#contact" class="group block relative h-72 rounded-2xl overflow-hidden reveal delay-200 tilt-card">
+                <a href="#contact" class="industry-card group block relative h-72 rounded-2xl overflow-hidden reveal delay-200 tilt-card">
                     <img src="assets/industries/construction.jpg" loading="lazy" alt="Строительство и недвижимость" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-[#1A0002] via-[#490005]/60 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
                     <div class="absolute inset-0 p-8 flex flex-col justify-end">
                         <h4 class="text-xl font-serif text-white mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform">Строительство и недвижимость</h4>
-                        <div class="h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                        <div class="industry-desc h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-300 overflow-hidden">
                             <p class="text-white/80 text-sm mt-2 font-light">Аудит проектов, договоры подряда и аренды, анализ затрат и расчетов с подрядчиками.</p>
                         </div>
                     </div>
                 </a>
 
                 <!-- Industry 6 -->
-                <a href="#contact" class="group block relative h-72 rounded-2xl overflow-hidden reveal delay-300 tilt-card">
+                <a href="#contact" class="industry-card group block relative h-72 rounded-2xl overflow-hidden reveal delay-300 tilt-card">
                     <img src="assets/industries/manufacturing.jpg" loading="lazy" alt="Производство" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-[#1A0002] via-[#490005]/60 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
                     <div class="absolute inset-0 p-8 flex flex-col justify-end">
                         <h4 class="text-xl font-serif text-white mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform">Производство</h4>
-                        <div class="h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                        <div class="industry-desc h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-300 overflow-hidden">
                             <p class="text-white/80 text-sm mt-2 font-light">Учет себестоимости, запасов и основных средств, договоры с поставщиками, внутренний контроль.</p>
                         </div>
                     </div>
                 </a>
 
                 <!-- Industry 7 -->
-                <a href="#contact" class="group block relative h-72 rounded-2xl overflow-hidden reveal delay-100 tilt-card">
+                <a href="#contact" class="industry-card group block relative h-72 rounded-2xl overflow-hidden reveal delay-100 tilt-card">
                     <img src="assets/industries/horeca.jpg" loading="lazy" alt="HoReCa и сфера услуг" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-[#1A0002] via-[#490005]/60 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
                     <div class="absolute inset-0 p-8 flex flex-col justify-end">
                         <h4 class="text-xl font-serif text-white mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform">HoReCa и сфера услуг</h4>
-                        <div class="h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                        <div class="industry-desc h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-300 overflow-hidden">
                             <p class="text-white/80 text-sm mt-2 font-light">Кассовые операции, зарплата, договоры аренды и с поставщиками, внутренний финансовый контроль.</p>
                         </div>
                     </div>
                 </a>
 
                 <!-- Industry 8 -->
-                <a href="#contact" class="group block relative h-72 rounded-2xl overflow-hidden reveal delay-200 tilt-card">
+                <a href="#contact" class="industry-card group block relative h-72 rounded-2xl overflow-hidden reveal delay-200 tilt-card">
                     <img src="assets/industries/logistics.jpg" loading="lazy" alt="Транспорт и логистика" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-[#1A0002] via-[#490005]/60 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
                     <div class="absolute inset-0 p-8 flex flex-col justify-end">
                         <h4 class="text-xl font-serif text-white mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform">Транспорт и логистика</h4>
-                        <div class="h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                        <div class="industry-desc h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-300 overflow-hidden">
                             <p class="text-white/80 text-sm mt-2 font-light">Договоры перевозки и экспедирования, учет транспортных расходов, международные операции.</p>
                         </div>
                     </div>
                 </a>
 
                 <!-- Industry 9 -->
-                <a href="#contact" class="group block relative h-72 rounded-2xl overflow-hidden reveal delay-300 tilt-card">
+                <a href="#contact" class="industry-card group block relative h-72 rounded-2xl overflow-hidden reveal delay-300 tilt-card">
                     <img src="assets/industries/smb.jpg" loading="lazy" alt="Малый и средний бизнес" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-[#1A0002] via-[#490005]/60 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
                     <div class="absolute inset-0 p-8 flex flex-col justify-end">
                         <h4 class="text-xl font-serif text-white mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform">Малый и средний бизнес</h4>
-                        <div class="h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                        <div class="industry-desc h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-300 overflow-hidden">
                             <p class="text-white/80 text-sm mt-2 font-light">Внешняя профессиональная команда: бухгалтерия, договоры, корпоративные вопросы и аудит без своего отдела.</p>
                         </div>
                     </div>
                 </a>
 
                 <!-- Industry 10 -->
-                <a href="#contact" class="group block relative h-72 rounded-2xl overflow-hidden reveal delay-100 tilt-card">
+                <a href="#contact" class="industry-card group block relative h-72 rounded-2xl overflow-hidden reveal delay-100 tilt-card">
                     <img src="assets/industries/services.jpg" loading="lazy" alt="Профессиональные и корпоративные услуги" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-[#1A0002] via-[#490005]/60 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
                     <div class="absolute inset-0 p-8 flex flex-col justify-end">
                         <h4 class="text-xl font-serif text-white mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform">Профессиональные и корпоративные услуги</h4>
-                        <div class="h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                        <div class="industry-desc h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-300 overflow-hidden">
                             <p class="text-white/80 text-sm mt-2 font-light">Консалтинговые, маркетинговые и образовательные компании: учет, договоры, корпоративное право.</p>
                         </div>
                     </div>
@@ -1861,7 +1893,8 @@
             }, { passive: true });
 
             // 4f. 3D Tilt on Cards
-            const tiltCards = document.querySelectorAll('.tilt-card');
+            const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+            const tiltCards = finePointer ? document.querySelectorAll('.tilt-card') : [];
             tiltCards.forEach(card => {
                 card.addEventListener('mousemove', (e) => {
                     const rect = card.getBoundingClientRect();
